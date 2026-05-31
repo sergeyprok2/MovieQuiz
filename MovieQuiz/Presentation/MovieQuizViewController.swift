@@ -3,6 +3,10 @@ import UIKit
 final class MovieQuizViewController: UIViewController {
     // MARK: - Lifecycle
     
+    @IBOutlet weak var yesButton: UIButton!
+    
+    @IBOutlet weak var noButton: UIButton!
+    
     @IBOutlet private var imageView: UIImageView!
     
     @IBOutlet private var textLabel: UILabel!
@@ -35,6 +39,11 @@ final class MovieQuizViewController: UIViewController {
         let givenAnswer = true // 2
         
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer) // 3
+        
+        // Блокируем кнопку
+        yesButton.isEnabled = false
+        
+    
     }
     
     
@@ -43,6 +52,9 @@ final class MovieQuizViewController: UIViewController {
         let givenAnswer = false // 2
         
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer) //
+        
+        // Блокируем кнопку
+        noButton.isEnabled = false
     }
     
     
@@ -153,8 +165,10 @@ final class MovieQuizViewController: UIViewController {
         imageView.layer.cornerRadius = 20 // радиус скругления углов рамки
         
         
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.showNextQuestionOrResults()
+        
             
         }
         
@@ -174,7 +188,13 @@ final class MovieQuizViewController: UIViewController {
                 text: text,
                 buttonText: "Сыграть ещё раз")
             show(quiz: viewModel)
+            
+            // Разблокируем кнопки
+            yesButton.isEnabled = true
+            noButton.isEnabled = true
         } else {
+            yesButton.isEnabled = true
+            noButton.isEnabled = true
             imageView.layer.borderWidth = 0
             
             currentQuestionIndex += 1
