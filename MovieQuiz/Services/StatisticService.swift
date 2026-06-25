@@ -74,21 +74,18 @@ final class StatisticService: StatisticServiceProtocol {
         }
         set {
             // Добавьте запись значений каждого поля из newValue в UserDefaults
-            UserDefaults.standard.set(newValue.correct, forKey: Keys.bestGameCorrect.rawValue)
-            UserDefaults.standard.set(newValue.total, forKey: Keys.bestGameTotal.rawValue)
-            UserDefaults.standard.set(newValue.date, forKey: Keys.bestGameDate.rawValue)
+            storage.set(newValue.correct, forKey: Keys.bestGameCorrect.rawValue)
+            storage.set(newValue.total, forKey: Keys.bestGameTotal.rawValue)
+            storage.set(newValue.date, forKey: Keys.bestGameDate.rawValue)
         }
     }
 
 //    Средняя точность ответов — это процент правильных ответов от общего числа вопросов
     var totalAccuracy: Double {
-        get {
-            // Добавьте чтение значения из UserDefaults
-//            let totalQuestions = gamesCount * 10
-            guard totalQuestionsAsked > 0 else { return 0 }
-            return Double(totalCorrectAnswers) / Double(totalQuestionsAsked) * 100
-        }
+       totalQuestionsAsked > 0 ? 0 : Double(totalCorrectAnswers) / Double(totalQuestionsAsked) * 100
     }
+    
+    
     
     func store(correct count: Int, total amount: Int) {
         // 1. Обновляем количество сыгранных игр

@@ -30,7 +30,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     private var alertPresenter = AlertPresenter()
     
-    private var statisticService: StatisticService?
+    var statisticService: StatisticServiceProtocol?
+    
     
     
     
@@ -41,12 +42,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
 //        print(NSHomeDirectory())
         UserDefaults.standard.set(true, forKey: "viewDidLoad")
         
-        statisticService = StatisticService()
-        
-//        print("���АТИСТИКА ПОСЛЕ СБРОСА: gamesCount = \(StatisticService().gamesCount)")
-
-        
-        
+        let statisticService: StatisticServiceProtocol = StatisticService()
 
         questionFactory = QuestionFactory(delegate: self)
         questionFactory?.requestNextQuestion()
@@ -112,7 +108,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     // приватный метод конвертации, который принимает моковый вопрос и возвращает вью модель для главного экрана
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         let questionStep = QuizStepViewModel( // 1
-            image: UIImage(named: model.image) ?? UIImage(), // 2
+            image: UIImage(named: model.imageName) ?? UIImage(), // 2
             question: model.text, // 3
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)") // 4
         return questionStep

@@ -6,7 +6,7 @@
 
 import Foundation
 
-class QuestionFactory: QuestionFactoryProtocol {
+final class QuestionFactory: QuestionFactoryProtocol {
     
     weak var delegate: QuestionFactoryDelegate?
     
@@ -17,56 +17,49 @@ class QuestionFactory: QuestionFactoryProtocol {
     // массив вопросов
     private let questions: [QuizQuestion] = [
         QuizQuestion(
-            image: "The Godfather",
+            imageName: "The Godfather",
             text: "Рейтинг этого фильма больше чем 6?",
             correctAnswer: true),
         QuizQuestion(
-            image: "The Dark Knight",
+            imageName: "The Dark Knight",
             text: "Рейтинг этого фильма больше чем 6?",
             correctAnswer: true),
         QuizQuestion(
-            image: "Kill Bill",
+            imageName: "Kill Bill",
             text: "Рейтинг этого фильма больше чем 6?",
             correctAnswer: true),
         QuizQuestion(
-            image: "The Avengers",
+            imageName: "The Avengers",
             text: "Рейтинг этого фильма больше чем 6?",
             correctAnswer: true),
         QuizQuestion(
-            image: "Deadpool",
+            imageName: "Deadpool",
             text: "Рейтинг этого фильма больше чем 6?",
             correctAnswer: true),
         QuizQuestion(
-            image: "The Green Knight",
+            imageName: "The Green Knight",
             text: "Рейтинг этого фильма больше чем 6?",
             correctAnswer: true),
         QuizQuestion(
-            image: "Old",
+            imageName: "Old",
             text: "Рейтинг этого фильма больше чем 6?",
             correctAnswer: false),
         QuizQuestion(
-            image: "The Ice Age Adventures of Buck Wild",
+            imageName: "The Ice Age Adventures of Buck Wild",
             text: "Рейтинг этого фильма больше чем 6?",
             correctAnswer: false),
         QuizQuestion(
-            image: "Tesla",
+            imageName: "Tesla",
             text: "Рейтинг этого фильма больше чем 6?",
             correctAnswer: false),
         QuizQuestion(
-            image: "Vivarium",
+            imageName: "Vivarium",
             text: "Рейтинг этого фильма больше чем 6?",
             correctAnswer: false)
     ]
     
     
-//    func requestNextQuestion() -> QuizQuestion? { // 1
-//        // 2
-//        guard let index = (0..<questions.count).randomElement() else {
-//            return nil
-//        }
-//
-//        return questions[safe: index] // 3
-//    }
+
     
     func requestNextQuestion() {
         guard let index = (0..<questions.count).randomElement() else {
