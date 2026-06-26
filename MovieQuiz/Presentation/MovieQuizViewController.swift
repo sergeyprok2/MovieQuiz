@@ -31,6 +31,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var alertPresenter = AlertPresenter()
     
     var statisticService: StatisticServiceProtocol?
+    init(statistic: StatisticServiceProtocol) {
+        self.statisticService = statistic
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     
     
@@ -42,7 +49,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
 //        print(NSHomeDirectory())
         UserDefaults.standard.set(true, forKey: "viewDidLoad")
         
-        let statisticService: StatisticServiceProtocol = StatisticService()
+//        let statisticService: StatisticServiceProtocol = StatisticService()
+
 
         questionFactory = QuestionFactory(delegate: self)
         questionFactory?.requestNextQuestion()
@@ -161,7 +169,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                 Ваш результат: \(correctAnswers) из 10
                 Количество сыгранных квизов: \(statisticService?.gamesCount ?? 0)
                 Рекорд: \(statisticService?.bestGame.correct ?? 0)/\(statisticService?.bestGame.total ?? 0) (\(statisticService?.bestGame.date.dateTimeString ?? Date().dateTimeString))
-                Средняя точность: \(String(format: "%.2f", statisticService?.totalAccuracy ?? 0))%
+                Средняя точность: \(String(format: "%.2f", statisticService?.totalAccuracy ?? 0.0))%
                 """
             let viewModel = QuizResultsViewModel( // 2
                 title: "Этот раунд окончен!",
@@ -189,6 +197,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     func show(quiz result: QuizResultsViewModel) {
+        print("���G: statisticService is \(statisticService != nil ? "PRESENT" : "NIL")")
         statisticService?.store(correct: correctAnswers, total: questionsAmount)
         let model = AlertModel(title: result.title, message: result.text, buttonText: result.buttonText) { [weak self] in
             guard let self = self else { return }
