@@ -8,10 +8,10 @@ import Foundation
 
 final class StatisticService: StatisticServiceProtocol {
     
-//    Убираем дублирование в коде: обращения к UserDefaults
+    //    Убираем дублирование в коде: обращения к UserDefaults
     private let storage: UserDefaults = .standard
     
-//    общее количество правильных ответов за все игры
+    //    общее количество правильных ответов за все игры
     private var totalCorrectAnswers: Int {
         get {
             storage.integer(forKey: Keys.totalCorrectAnswers.rawValue)
@@ -21,7 +21,7 @@ final class StatisticService: StatisticServiceProtocol {
         }
     }
     
-//    общее количество вопросов, заданных за все игры
+    //    общее количество вопросов, заданных за все игры
     private var totalQuestionsAsked: Int {
         get {
             storage.integer(forKey: Keys.totalQuestionsAsked.rawValue)
@@ -40,7 +40,7 @@ final class StatisticService: StatisticServiceProtocol {
         case totalQuestionsAsked // Для общего количества вопросов, заданных за все игры
     }
     
-//    счётчик сыгранных игр
+    //    счётчик сыгранных игр
     var gamesCount: Int {
         get {
                 // чтение значения из UserDefaults
@@ -52,17 +52,17 @@ final class StatisticService: StatisticServiceProtocol {
         }
     }
     
-//    Лучшая игра
+    //    Лучшая игра
     var bestGame: GameResult {
         get {
-            // Добавьте чтение значений полей GameResult(correct, total и date) из UserDefaults,
-            // затем создайте GameResult от полученных значений
+            // Добавим чтение значений полей GameResult(correct, total и date) из UserDefaults,
+            // затем создадим GameResult от полученных значений
             // Читаем значения из UserDefaults
             
-//            количество правильных ответов в лучшей игре
+            // количество правильных ответов в лучшей игре
             let correct = storage.integer(forKey: Keys.bestGameCorrect.rawValue)
             
-//            общее количество вопросов в лучшей игре
+            // общее количество вопросов в лучшей игре
             let total = storage.integer(forKey: Keys.bestGameTotal.rawValue)
 
             // Читаем дату: если не сохранена, используем текущую
@@ -73,16 +73,16 @@ final class StatisticService: StatisticServiceProtocol {
             }
         }
         set {
-            // Добавьте запись значений каждого поля из newValue в UserDefaults
+            // Добавляем запись значений каждого поля из newValue в UserDefaults
             storage.set(newValue.correct, forKey: Keys.bestGameCorrect.rawValue)
             storage.set(newValue.total, forKey: Keys.bestGameTotal.rawValue)
             storage.set(newValue.date, forKey: Keys.bestGameDate.rawValue)
         }
     }
 
-//    Средняя точность ответов — это процент правильных ответов от общего числа вопросов
+    //    Средняя точность ответов — это процент правильных ответов от общего числа вопросов
     var totalAccuracy: Double {
-       totalQuestionsAsked > 0 ? 0 : Double(totalCorrectAnswers) / Double(totalQuestionsAsked) * 100
+        totalQuestionsAsked > 0 ? (Double(totalCorrectAnswers) / Double(totalQuestionsAsked) * 100) : 0
     }
     
     
@@ -105,6 +105,4 @@ final class StatisticService: StatisticServiceProtocol {
             bestGame = currentGame  // Сохраняем новый рекорд
         }
     }
-    
-    
 }

@@ -30,27 +30,19 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     private var alertPresenter = AlertPresenter()
     
-    var statisticService: StatisticServiceProtocol?
-    init(statistic: StatisticServiceProtocol) {
-        self.statisticService = statistic
-        super.init(nibName: nil, bundle: nil)
-    }
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    
-    
-    
-    
+    private var statisticService: StatisticServiceProtocol?
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
 //        print(Bundle.main.bundlePath)
 //        print(NSHomeDirectory())
+        // РАСКОММЕНТИРУЙ СТРОЧКУ НИЖЕ, ЕСЛИ НАДО СБРОСИТЬ ВСЮ СТАТИСТИКУ:
+//        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        
         UserDefaults.standard.set(true, forKey: "viewDidLoad")
         
-//        let statisticService: StatisticServiceProtocol = StatisticService()
-
+        statisticService = StatisticService()
 
         questionFactory = QuestionFactory(delegate: self)
         questionFactory?.requestNextQuestion()
@@ -162,11 +154,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         imageView.layer.borderWidth = 0
         
         if currentQuestionIndex == questionsAmount - 1 {
+            statisticService?.store(correct: correctAnswers, total: questionsAmount)
+            
             // идём в состояние "Результат квиза"
-//            let text = "Ваш результат: \(correctAnswers)/\(questionsAmount)" // 1
             let text = 
                 """
-                Ваш результат: \(correctAnswers) из 10
+                Ваш результат: \(correctAnswers) из \(questionsAmount)
                 Количество сыгранных квизов: \(statisticService?.gamesCount ?? 0)
                 Рекорд: \(statisticService?.bestGame.correct ?? 0)/\(statisticService?.bestGame.total ?? 0) (\(statisticService?.bestGame.date.dateTimeString ?? Date().dateTimeString))
                 Средняя точность: \(String(format: "%.2f", statisticService?.totalAccuracy ?? 0.0))%
@@ -187,18 +180,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             
             currentQuestionIndex += 1
             
-//            let nextQuestion = questions[currentQuestionIndex]
-//            let viewModel = convert(model: nextQuestion)
-//            
-//            show(quiz: viewModel)
-            questionFactory = QuestionFactory(delegate: self)
+
             questionFactory?.requestNextQuestion()
         }
     }
     
-    func show(quiz result: QuizResultsViewModel) {
+    private func show(quiz result: QuizResultsViewModel) {
         print("���G: statisticService is \(statisticService != nil ? "PRESENT" : "NIL")")
-        statisticService?.store(correct: correctAnswers, total: questionsAmount)
+        
         let model = AlertModel(title: result.title, message: result.text, buttonText: result.buttonText) { [weak self] in
             guard let self = self else { return }
 
