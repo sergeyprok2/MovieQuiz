@@ -58,7 +58,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг этого фильма, меньше чем 5?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGL-RP-JSY" userLabel="Question Label">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Рейтинг этого фильма, меньше чем 7?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GGL-RP-JSY" userLabel="Question Label">
                                         <rect key="frame" x="0.0" y="562.33333333333337" width="350" height="54"/>
                                         <fontDescription key="fontDescription" name="YSDisplay-Bold" family="YS Display" pointSize="23"/>
                                         <color key="textColor" name="YP White"/>
@@ -111,17 +111,23 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Fg4-ey-oIg">
+                                <rect key="frame" x="185" y="412" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
                             <constraint firstItem="XKY-1R-xOy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="0QH-7f-sJc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="XKY-1R-xOy" secondAttribute="trailing" constant="20" id="9X6-Rw-W8y"/>
+                            <constraint firstItem="Fg4-ey-oIg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DtQ-4u-D0F"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="XKY-1R-xOy" secondAttribute="bottom" id="MCj-9B-Mjj"/>
                             <constraint firstItem="XKY-1R-xOy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="9.9999999999999716" id="YNW-k4-1Fd"/>
+                            <constraint firstItem="Fg4-ey-oIg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ZRQ-Ik-Er4"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="Fg4-ey-oIg" id="hEU-Mb-Itp"/>
                         <outlet property="counterLabel" destination="DhH-2R-fwv" id="wyz-ZQ-xwm"/>
                         <outlet property="imageView" destination="Q9d-3C-vnA" id="LVo-47-cVM"/>
                         <outlet property="noButton" destination="pCe-NK-5fK" id="MuI-Gq-DE1"/>
