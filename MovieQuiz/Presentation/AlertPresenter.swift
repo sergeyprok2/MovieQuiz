@@ -5,7 +5,6 @@
 //
 import UIKit
 
-
 final class AlertPresenter {
     func show(in vc: UIViewController, model: AlertModel) {
         let alert = UIAlertController(
