@@ -85,8 +85,6 @@ final class StatisticService: StatisticServiceProtocol {
         totalQuestionsAsked > 0 ? (Double(totalCorrectAnswers) / Double(totalQuestionsAsked) * 100) : 0
     }
     
-    
-    
     func store(correct count: Int, total amount: Int) {
         // 1. Обновляем количество сыгранных игр
         gamesCount += 1

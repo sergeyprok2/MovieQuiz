@@ -8,17 +8,17 @@ import Foundation
 
 final class QuestionFactory: QuestionFactoryProtocol {
     
-    private let moviesLoader: MoviesLoading
+    private let moviesLoader: MoviesLoadingProtocol
     
     private weak var delegate: QuestionFactoryDelegate?
     
-    init(moviesLoader: MoviesLoading, delegate: QuestionFactoryDelegate?) {
+    private var movies: [MostPopularMovie] = []
+
+    init(moviesLoader: MoviesLoadingProtocol, delegate: QuestionFactoryDelegate?) {
         self.moviesLoader = moviesLoader
         self.delegate = delegate
     }
-    
-    private var movies: [MostPopularMovie] = []
-    
+
     // массив вопросов
 //    private let questions: [QuizQuestion] = [
 //        QuizQuestion(
@@ -63,7 +63,6 @@ final class QuestionFactory: QuestionFactoryProtocol {
 //            correctAnswer: false)
 //    ]
     
-    
     func loadData() {
         moviesLoader.loadMovies { [weak self] result in
             DispatchQueue.main.async {
@@ -78,8 +77,6 @@ final class QuestionFactory: QuestionFactoryProtocol {
             }
         }
     }
-    
-    
     
     func requestNextQuestion() {
         DispatchQueue.global().async { [weak self] in
