@@ -95,8 +95,8 @@ final class QuestionFactory: QuestionFactoryProtocol {
             
             let rating = Float(movie.rating) ?? 0
             
-            let text = "Рейтинг этого фильма больше чем 7?"
-            let correctAnswer = rating > 7
+            let text = "Рейтинг этого фильма больше чем 8?"
+            let correctAnswer = rating > 8
             
             let question = QuizQuestion(imageName: imageData,
                                          text: text,
@@ -108,15 +108,5 @@ final class QuestionFactory: QuestionFactoryProtocol {
             }
         }
     }
-    
-//    func requestNextQuestion() {
-//        guard let index = (0..<questions.count).randomElement() else {
-//            delegate?.didReceiveNextQuestion(question: nil)
-//            return
-//        }
-//
-//        let question = questions[safe: index]
-//        delegate?.didReceiveNextQuestion(question: question)
-//    }
 
 }
