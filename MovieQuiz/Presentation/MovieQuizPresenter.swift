@@ -7,6 +7,16 @@
 import Foundation
 
 final class MovieQuizPresenter: QuestionFactoryDelegate {
+    
+    var correctAnswers: Int = 0
+    
+    //    общее количество вопросов для квиза. Пусть оно будет равно десяти
+    let questionsAmount: Int = 10
+    
+    // переменная с индексом текущего вопроса, начальное значение 0
+    // (по этому индексу будем искать вопрос в массиве, где индекс первого элемента 0, а не 1)
+    private var currentQuestionIndex: Int = 0
+    
     private let statisticService: StatisticServiceProtocol!
     
     private var questionFactory: QuestionFactoryProtocol?
@@ -46,16 +56,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
             self?.viewController?.show(quiz: viewModel)
         }
     }
-    
-    var correctAnswers: Int = 0
-    
-    //    общее количество вопросов для квиза. Пусть оно будет равно десяти
-    let questionsAmount: Int = 10
-    
-    // переменная с индексом текущего вопроса, начальное значение 0
-    // (по этому индексу будем искать вопрос в массиве, где индекс первого элемента 0, а не 1)
-    private var currentQuestionIndex: Int = 0
-    
+
     func isLastQuestion() -> Bool {
         currentQuestionIndex == questionsAmount - 1
     }
